@@ -33,9 +33,11 @@ class SkilsCell: UICollectionViewCell {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         return label
     }()
-    private var deleteButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "xmark"), for: .normal)

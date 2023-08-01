@@ -55,6 +55,7 @@ class MainViewController: UIViewController {
         label.numberOfLines = 2
         label.textAlignment = .center
         label.text = "intern iOS-разработчик, нет комерческого опыта работы"
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -67,6 +68,8 @@ class MainViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         button.setTitleColor(UIColor(hexString: "#96959B"), for: .normal)
         button.tintColor = UIColor(hexString: "#96959B")
+        button.titleLabel?.lineBreakMode = .byTruncatingTail
+        button.titleLabel?.numberOfLines = 1
         return button
     }()
     
