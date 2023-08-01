@@ -27,6 +27,27 @@ class MainViewController: UIViewController {
         return imageView
     }()
     
+    private var nameLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.numberOfLines = 0
+        label.text = "Ревякин Алексей Игроевич"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private var descriptionLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = UIColor(hexString: "#96959B")
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.text = "Middle iOS-разработчик, опыт более 2-х лет"
+        return label
+    }()
+    
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +60,8 @@ class MainViewController: UIViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(personImageView)
+        scrollView.addSubview(nameLabel)
+        scrollView.addSubview(descriptionLabel)
     }
     
     //MARK: - Constraints
@@ -54,6 +77,18 @@ class MainViewController: UIViewController {
             personImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
             personImageView.widthAnchor.constraint(equalToConstant: 120),
             personImageView.heightAnchor.constraint(equalToConstant: 120)
+        ])
+        NSLayoutConstraint.activate([
+            nameLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            nameLabel.topAnchor.constraint(equalTo: personImageView.bottomAnchor, constant: 16),
+            nameLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 65),
+            nameLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -65)
+        ])
+        NSLayoutConstraint.activate([
+            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16)
         ])
     }
 
