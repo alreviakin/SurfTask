@@ -13,6 +13,8 @@ protocol MainViewControllerDelegate: AnyObject {
 
 class MainViewController: UIViewController {
     
+    private var width: CGFloat = 16
+    private var countRow = 0
     var viewModel = MainViewModel()
     
     //MARK: - UI Elements
@@ -51,7 +53,7 @@ class MainViewController: UIViewController {
         label.textColor = UIColor(hexString: "#96959B")
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.text = "Middle iOS-разработчик, опыт более 2-х лет"
+        label.text = "intern iOS-разработчик, нет комерческого опыта работы"
         return label
     }()
     
@@ -59,7 +61,7 @@ class MainViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "location"), for: .normal)
-        button.setTitle(" Воронеж", for: .normal)
+        button.setTitle(" Санкт-Петербург", for: .normal)
         button.isEnabled = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         button.setTitleColor(UIColor(hexString: "#96959B"), for: .normal)
@@ -110,7 +112,7 @@ class MainViewController: UIViewController {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.text = "About"
+        label.text = "О себе"
         return label
     }()
     
@@ -119,7 +121,8 @@ class MainViewController: UIViewController {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "sdklfjalskdfjlkasdjflkjklfasjdlkfjslkdjfalskdfjlaksdf"
+        label.numberOfLines = 0
+        label.text = "Experienced software engineer skilled in developing scalable and maintainable systems"
         return label
     }()
     
@@ -180,12 +183,36 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         label.sizeToFit()
         if viewModel.isEditing {
             if viewModel.isLast(at: indexPath) {
-                return CGSize(width: label.frame.width + 48, height: 44)
+                let count = label.frame.width + 48
+                if isWidthLessSelfViewWidth(count: count) {
+                    countRow += 1
+                    width = 16
+                    width += count
+                } else {
+                    width += count
+                }
+                return CGSize(width: count, height: 44)
             } else {
-                return CGSize(width: label.frame.width + 48 + 24, height: 44)
+                let count = label.frame.width + 48 + 24
+                if isWidthLessSelfViewWidth(count: count) {
+                    countRow += 1
+                    width = 16
+                    width += count
+                } else {
+                    width += count
+                }
+                return CGSize(width: count, height: 44)
             }
         } else {
-            return CGSize(width: label.frame.width + 48, height: 44)
+            let count = label.frame.width + 48
+            if isWidthLessSelfViewWidth(count: count) {
+                countRow += 1
+                width = 16
+                width += count
+            } else {
+                width += count
+            }
+            return CGSize(width: count, height: 44)
         }
     }
 }
@@ -196,12 +223,14 @@ extension MainViewController {
             viewModel.isEditing.toggle()
             collection.reloadData()
             collection.layoutIfNeeded()
+            updateContentSizeScrollView()
             editButton.setImage(UIImage(named: "pencil"), for: .normal)
         } else {
             viewModel.isEditing.toggle()
             print(viewModel.isEditing)
             collection.reloadData()
             collection.layoutIfNeeded()
+            updateContentSizeScrollView()
             editButton.setImage(UIImage(named:"checkmark"), for: .normal)
         }
     }
@@ -213,6 +242,7 @@ extension MainViewController: MainViewControllerDelegate {
         viewModel.deleteSkil(for: index)
         collection.reloadData()
         collection.layoutIfNeeded()
+        updateContentSizeScrollView()
     }
 }
 
@@ -238,8 +268,27 @@ extension MainViewController: UICollectionViewDelegate {
             self.viewModel.addSkil(skil: text)
             self.collection.reloadData()
             self.collection.layoutIfNeeded()
+            updateContentSizeScrollView()
         }
         alert.addAction(addAction)
         present(alert, animated: true)
+    }
+}
+
+extension MainViewController {
+    private func updateContentSizeScrollView() {
+        var height:CGFloat = 0
+        for view in scrollView.subviews {
+            if view != collection {
+                height += view.bounds.height
+            }
+        }
+        height += CGFloat(countRow * 44)
+        height += CGFloat(12 * (countRow - 1))
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: height)
+    }
+    
+    func isWidthLessSelfViewWidth(count: CGFloat) -> Bool {
+        return (width + count) > view.frame.width
     }
 }

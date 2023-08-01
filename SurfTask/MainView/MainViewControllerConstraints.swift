@@ -71,7 +71,8 @@ extension MainViewController {
         NSLayoutConstraint.activate([
             descriptionAboutLabel.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8),
             descriptionAboutLabel.leadingAnchor.constraint(equalTo: collection.leadingAnchor),
-            descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            descriptionAboutLabel.trailingAnchor.constraint(equalTo: collection.trailingAnchor),
+            descriptionAboutLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
 }
