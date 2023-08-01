@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol MainViewControllerDelegate: AnyObject {
+    func delete(at index: Int)
+}
+
 class MainViewController: UIViewController {
     
+    var viewModel = MainViewModel()
+    
     //MARK: - UI Elements
-    private var scrollView: UIScrollView = {
+    internal var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,8 +24,8 @@ class MainViewController: UIViewController {
         return scrollView
     }()
     
-    private var personImageView: UIImageView = {
-       let imageView = UIImageView()
+    internal var personImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 60
         imageView.layer.masksToBounds = true
@@ -27,18 +33,19 @@ class MainViewController: UIViewController {
         return imageView
     }()
     
-    private var nameLabel: UILabel = {
-       let label = UILabel()
+    internal var nameLabel: UILabel = {
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textColor = .black
         label.numberOfLines = 0
         label.text = "Ревякин Алексей Игроевич"
         label.textAlignment = .center
         return label
     }()
     
-    private var descriptionLabel: UILabel = {
-       let label = UILabel()
+    internal var descriptionLabel: UILabel = {
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor(hexString: "#96959B")
@@ -48,8 +55,8 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    private var locationButton: UIButton = {
-       let button = UIButton()
+    internal var locationButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "location"), for: .normal)
         button.setTitle(" Воронеж", for: .normal)
@@ -60,39 +67,58 @@ class MainViewController: UIViewController {
         return button
     }()
     
-    private var backgroundView: UIView = {
-       let view = UIView()
+    internal var backgroundView: UIView = {
+        let view = UIView()
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var skilsLabel: UILabel = {
-       let label = UILabel()
+    internal var skilsLabel: UILabel = {
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16)
         label.text = "Мои навыки"
         return label
     }()
-    private var editButton: UIButton = {
-       let button = UIButton()
+    internal lazy var editButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "pencil"), for: .normal)
+        button.addTarget(self, action: #selector(editCollection), for: .touchUpInside)
         return button
     }()
     
-    private var collectionIdentifire = "collectionCell"
+    internal var collectionIdentifire = "collectionCell"
     
-    private lazy var collection: UICollectionView = {
-       let layout = CustomCollectionViewFlowLayout()
+    internal lazy var collection: UICollectionView = {
+        let layout = CustomCollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.dataSource = self
         collection.delegate = self
+        collection.isScrollEnabled = false
         collection.register(SkilsCell.self, forCellWithReuseIdentifier: collectionIdentifire)
         return collection
+    }()
+    
+    internal var aboutLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        return label
+    }()
+    
+    internal var descriptionAboutLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return label
     }()
     
     //MARK: - ViewDidLoad
@@ -114,77 +140,32 @@ class MainViewController: UIViewController {
         scrollView.addSubview(skilsLabel)
         scrollView.addSubview(editButton)
         scrollView.addSubview(collection)
-    }
-}
-
-//MARK: - Constraints
-extension MainViewController {
-    
-    override func viewWillLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            personImageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            personImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
-            personImageView.widthAnchor.constraint(equalToConstant: 120),
-            personImageView.heightAnchor.constraint(equalToConstant: 120)
-        ])
-        NSLayoutConstraint.activate([
-            nameLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            nameLabel.topAnchor.constraint(equalTo: personImageView.bottomAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -65)
-        ])
-        NSLayoutConstraint.activate([
-            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
-            locationButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            locationButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
-            locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundView.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 19),
-            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            skilsLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 21),
-            skilsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
-        ])
-        NSLayoutConstraint.activate([
-            editButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 21),
-            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            editButton.widthAnchor.constraint(equalToConstant: 24),
-            editButton.heightAnchor.constraint(equalToConstant: 24)
-        ])
-        NSLayoutConstraint.activate([
-            collection.leadingAnchor.constraint(equalTo: skilsLabel.leadingAnchor),
-            collection.trailingAnchor.constraint(equalTo: editButton.trailingAnchor),
-            collection.topAnchor.constraint(equalTo: skilsLabel.bottomAnchor, constant: 16),
-            collection.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
-        ])
+        scrollView.addSubview(aboutLabel)
+        scrollView.addSubview(descriptionAboutLabel)
     }
 }
 
 //MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        return viewModel.numberOfRow()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionIdentifire, for: indexPath) as? SkilsCell else { return UICollectionViewCell()}
-        
+        let cellViewModel = viewModel.getSkilCellViewModel(for: indexPath)
+        cellViewModel.index = indexPath.row
+        if viewModel.isEditing {
+            if viewModel.isLast(at: indexPath) {
+                cellViewModel.isEditing.toggle()
+                cell.viewModel = cellViewModel
+            } else {
+                cell.viewModel = cellViewModel
+            }
+        } else {
+            cell.viewModel = cellViewModel
+        }
+        cell.delegate = self
         return cell
     }
 }
@@ -193,8 +174,66 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let label = UILabel()
-        label.text = "MVI/MVVM"
+        label.text = viewModel.getSkil(for: indexPath)
         label.sizeToFit()
-        return CGSize(width: label.frame.width + 48, height: 44)
+        if viewModel.isEditing {
+            if viewModel.isLast(at: indexPath) {
+                return CGSize(width: label.frame.width + 48, height: 44)
+            } else {
+                return CGSize(width: label.frame.width + 48 + 24, height: 44)
+            }
+        } else {
+            return CGSize(width: label.frame.width + 48, height: 44)
+        }
+    }
+}
+
+extension MainViewController {
+    @objc private func editCollection() {
+        if viewModel.isEditing {
+            viewModel.isEditing.toggle()
+            collection.reloadData()
+            editButton.setImage(UIImage(named: "pencil"), for: .normal)
+        } else {
+            viewModel.isEditing.toggle()
+            print(viewModel.isEditing)
+            collection.reloadData()
+            editButton.setImage(UIImage(named:"checkmark"), for: .normal)
+        }
+    }
+}
+
+//MARK: - MainViewControllerDelegate
+extension MainViewController: MainViewControllerDelegate {
+    func delete(at index: Int) {
+        viewModel.deleteSkil(for: index)
+        collection.reloadData()
+    }
+}
+
+//MARK: -
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if viewModel.isEditing {
+            if viewModel.isLast(at: indexPath) {
+                showAlert()
+            }
+        }
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "Добавление навыка", message: "Введите название навыка которым вы владеете", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "Введите название"
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .default)
+        alert.addAction(cancelAction)
+        let addAction = UIAlertAction(title: "Добавить", style: .default) {[weak self] _ in
+            guard let self, let text = alert.textFields?[0].text else { return }
+            self.viewModel.addSkil(skil: text)
+            self.collection.reloadData()
+        }
+        alert.addAction(addAction)
+        present(alert, animated: true)
     }
 }

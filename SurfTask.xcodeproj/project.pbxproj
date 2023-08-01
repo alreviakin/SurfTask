@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AE1738C52A794A4A00B4F352 /* CustomCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1738C42A794A4A00B4F352 /* CustomCollectionViewFlowLayout.swift */; };
+		AE1738C82A794C7200B4F352 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1738C72A794C7200B4F352 /* MainViewModel.swift */; };
+		AE1738CA2A794D7300B4F352 /* MainViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1738C92A794D7300B4F352 /* MainViewControllerConstraints.swift */; };
+		AE1738CC2A794DF400B4F352 /* SkilsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1738CB2A794DF400B4F352 /* SkilsCellViewModel.swift */; };
 		AE931D012A78F45800384D9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE931D002A78F45800384D9B /* AppDelegate.swift */; };
 		AE931D032A78F45800384D9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE931D022A78F45800384D9B /* SceneDelegate.swift */; };
 		AE931D0A2A78F45A00384D9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE931D092A78F45A00384D9B /* Assets.xcassets */; };
@@ -19,6 +22,9 @@
 
 /* Begin PBXFileReference section */
 		AE1738C42A794A4A00B4F352 /* CustomCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		AE1738C72A794C7200B4F352 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		AE1738C92A794D7300B4F352 /* MainViewControllerConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerConstraints.swift; sourceTree = "<group>"; };
+		AE1738CB2A794DF400B4F352 /* SkilsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkilsCellViewModel.swift; sourceTree = "<group>"; };
 		AE931CFD2A78F45800384D9B /* SurfTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE931D002A78F45800384D9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE931D022A78F45800384D9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 			children = (
 				AE931D1F2A792CB800384D9B /* View */,
 				AE931D172A78F50900384D9B /* MainViewController.swift */,
+				AE1738C72A794C7200B4F352 /* MainViewModel.swift */,
+				AE1738C92A794D7300B4F352 /* MainViewControllerConstraints.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -109,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				AE931D202A792F8F00384D9B /* SkilsCell.swift */,
+				AE1738CB2A794DF400B4F352 /* SkilsCellViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -183,11 +192,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1738C82A794C7200B4F352 /* MainViewModel.swift in Sources */,
 				AE931D182A78F50900384D9B /* MainViewController.swift in Sources */,
+				AE1738CA2A794D7300B4F352 /* MainViewControllerConstraints.swift in Sources */,
 				AE1738C52A794A4A00B4F352 /* CustomCollectionViewFlowLayout.swift in Sources */,
 				AE931D012A78F45800384D9B /* AppDelegate.swift in Sources */,
 				AE931D032A78F45800384D9B /* SceneDelegate.swift in Sources */,
 				AE931D1B2A78F6B800384D9B /* UIColor + Ext.swift in Sources */,
+				AE1738CC2A794DF400B4F352 /* SkilsCellViewModel.swift in Sources */,
 				AE931D212A792F8F00384D9B /* SkilsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
