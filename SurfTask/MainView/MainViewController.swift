@@ -8,11 +8,15 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureation()
+    }
+    
+    private func configureation() {
+        view.backgroundColor = UIColor(hexString: "#F3F3F5")
+        title = "Профиль"
     }
 
 }
