@@ -81,9 +81,17 @@ class MainViewController: UIViewController {
         return button
     }()
     
-    private var collection: UICollectionView = {
-       let layout = UICollectionViewFlowLayout()
+    private var collectionIdentifire = "collectionCell"
+    
+    private lazy var collection: UICollectionView = {
+       let layout = CustomCollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.minimumInteritemSpacing = 12
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.dataSource = self
+        collection.delegate = self
+        collection.register(SkilsCell.self, forCellWithReuseIdentifier: collectionIdentifire)
         return collection
     }()
     
@@ -105,7 +113,7 @@ class MainViewController: UIViewController {
         scrollView.addSubview(backgroundView)
         scrollView.addSubview(skilsLabel)
         scrollView.addSubview(editButton)
-        
+        scrollView.addSubview(collection)
     }
 }
 
@@ -159,7 +167,34 @@ extension MainViewController {
             editButton.widthAnchor.constraint(equalToConstant: 24),
             editButton.heightAnchor.constraint(equalToConstant: 24)
         ])
-        
+        NSLayoutConstraint.activate([
+            collection.leadingAnchor.constraint(equalTo: skilsLabel.leadingAnchor),
+            collection.trailingAnchor.constraint(equalTo: editButton.trailingAnchor),
+            collection.topAnchor.constraint(equalTo: skilsLabel.bottomAnchor, constant: 16),
+            collection.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
+        ])
     }
+}
 
+//MARK: - UICollectionViewDataSource
+extension MainViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionIdentifire, for: indexPath) as? SkilsCell else { return UICollectionViewCell()}
+        
+        return cell
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let label = UILabel()
+        label.text = "MVI/MVVM"
+        label.sizeToFit()
+        return CGSize(width: label.frame.width + 48, height: 44)
+    }
 }
