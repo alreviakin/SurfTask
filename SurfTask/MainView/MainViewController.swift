@@ -96,7 +96,7 @@ class MainViewController: UIViewController {
         let layout = CustomCollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collection = CustomCollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.dataSource = self
         collection.delegate = self
@@ -110,6 +110,7 @@ class MainViewController: UIViewController {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.text = "About"
         return label
     }()
     
@@ -118,6 +119,7 @@ class MainViewController: UIViewController {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.text = "sdklfjalskdfjlkasdjflkjklfasjdlkfjslkdjfalskdfjlaksdf"
         return label
     }()
     
@@ -193,11 +195,13 @@ extension MainViewController {
         if viewModel.isEditing {
             viewModel.isEditing.toggle()
             collection.reloadData()
+            collection.layoutIfNeeded()
             editButton.setImage(UIImage(named: "pencil"), for: .normal)
         } else {
             viewModel.isEditing.toggle()
             print(viewModel.isEditing)
             collection.reloadData()
+            collection.layoutIfNeeded()
             editButton.setImage(UIImage(named:"checkmark"), for: .normal)
         }
     }
@@ -208,6 +212,7 @@ extension MainViewController: MainViewControllerDelegate {
     func delete(at index: Int) {
         viewModel.deleteSkil(for: index)
         collection.reloadData()
+        collection.layoutIfNeeded()
     }
 }
 
@@ -232,6 +237,7 @@ extension MainViewController: UICollectionViewDelegate {
             guard let self, let text = alert.textFields?[0].text else { return }
             self.viewModel.addSkil(skil: text)
             self.collection.reloadData()
+            self.collection.layoutIfNeeded()
         }
         alert.addAction(addAction)
         present(alert, animated: true)

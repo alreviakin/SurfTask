@@ -15,7 +15,8 @@ extension MainViewController {
             scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
         NSLayoutConstraint.activate([
             personImageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
@@ -61,7 +62,7 @@ extension MainViewController {
             self.collection.leadingAnchor.constraint(equalTo: skilsLabel.leadingAnchor),
             self.collection.trailingAnchor.constraint(equalTo: editButton.trailingAnchor),
             self.collection.topAnchor.constraint(equalTo: skilsLabel.bottomAnchor, constant: 16),
-            self.collection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+//            self.collection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
             aboutLabel.topAnchor.constraint(equalTo: collection.bottomAnchor, constant: 24),
@@ -69,7 +70,8 @@ extension MainViewController {
         ])
         NSLayoutConstraint.activate([
             descriptionAboutLabel.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8),
-            descriptionAboutLabel.leadingAnchor.constraint(equalTo: collection.leadingAnchor)
+            descriptionAboutLabel.leadingAnchor.constraint(equalTo: collection.leadingAnchor),
+            descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
 }
