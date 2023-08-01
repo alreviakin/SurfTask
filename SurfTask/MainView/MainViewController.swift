@@ -48,6 +48,45 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    private var locationButton: UIButton = {
+       let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "location"), for: .normal)
+        button.setTitle(" Воронеж", for: .normal)
+        button.isEnabled = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        button.setTitleColor(UIColor(hexString: "#96959B"), for: .normal)
+        button.tintColor = UIColor(hexString: "#96959B")
+        return button
+    }()
+    
+    private var backgroundView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var skilsLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.text = "Мои навыки"
+        return label
+    }()
+    private var editButton: UIButton = {
+       let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "pencil"), for: .normal)
+        return button
+    }()
+    
+    private var collection: UICollectionView = {
+       let layout = UICollectionViewFlowLayout()
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collection
+    }()
+    
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +101,17 @@ class MainViewController: UIViewController {
         scrollView.addSubview(personImageView)
         scrollView.addSubview(nameLabel)
         scrollView.addSubview(descriptionLabel)
+        scrollView.addSubview(locationButton)
+        scrollView.addSubview(backgroundView)
+        scrollView.addSubview(skilsLabel)
+        scrollView.addSubview(editButton)
+        
     }
+}
+
+//MARK: - Constraints
+extension MainViewController {
     
-    //MARK: - Constraints
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -81,15 +128,38 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate([
             nameLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             nameLabel.topAnchor.constraint(equalTo: personImageView.bottomAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 65),
-            nameLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -65)
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -65)
         ])
         NSLayoutConstraint.activate([
             descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16)
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
+        NSLayoutConstraint.activate([
+            locationButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            locationButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
+            locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+        NSLayoutConstraint.activate([
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundView.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 19),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            skilsLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 21),
+            skilsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ])
+        NSLayoutConstraint.activate([
+            editButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 21),
+            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            editButton.widthAnchor.constraint(equalToConstant: 24),
+            editButton.heightAnchor.constraint(equalToConstant: 24)
+        ])
+        
     }
 
 }

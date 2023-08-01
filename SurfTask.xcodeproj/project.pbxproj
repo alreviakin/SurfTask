@@ -86,6 +86,7 @@
 		AE931D162A78F4E200384D9B /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				AE931D1F2A792CB800384D9B /* View */,
 				AE931D172A78F50900384D9B /* MainViewController.swift */,
 			);
 			path = MainView;
@@ -97,6 +98,13 @@
 				AE931D1A2A78F6B800384D9B /* UIColor + Ext.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		AE931D1F2A792CB800384D9B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
