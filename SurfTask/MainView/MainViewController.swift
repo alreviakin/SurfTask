@@ -31,7 +31,8 @@ class MainViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 60
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .cyan
+        imageView.image = UIImage(named: "photo")
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
