@@ -12,6 +12,7 @@
 		AE931D0A2A78F45A00384D9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE931D092A78F45A00384D9B /* Assets.xcassets */; };
 		AE931D0D2A78F45A00384D9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE931D0B2A78F45A00384D9B /* LaunchScreen.storyboard */; };
 		AE931D182A78F50900384D9B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE931D172A78F50900384D9B /* MainViewController.swift */; };
+		AE931D1B2A78F6B800384D9B /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE931D1A2A78F6B800384D9B /* UIColor + Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		AE931D0C2A78F45A00384D9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE931D0E2A78F45A00384D9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE931D172A78F50900384D9B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		AE931D1A2A78F6B800384D9B /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				AE931D162A78F4E200384D9B /* MainView */,
 				AE931D152A78F4D200384D9B /* Application */,
+				AE931D192A78F6A700384D9B /* Extension */,
 				AE931D142A78F4A900384D9B /* SupportingFiles */,
 			);
 			path = SurfTask;
@@ -86,6 +89,14 @@
 				AE931D172A78F50900384D9B /* MainViewController.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		AE931D192A78F6A700384D9B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AE931D1A2A78F6B800384D9B /* UIColor + Ext.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +172,7 @@
 				AE931D182A78F50900384D9B /* MainViewController.swift in Sources */,
 				AE931D012A78F45800384D9B /* AppDelegate.swift in Sources */,
 				AE931D032A78F45800384D9B /* SceneDelegate.swift in Sources */,
+				AE931D1B2A78F6B800384D9B /* UIColor + Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
